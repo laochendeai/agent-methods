@@ -54,11 +54,17 @@
 - `skills/repo-closeout/`
   在一个阶段性工作完成后，对仓库做安全收尾：同步主分支、审视分支/worktree、检查文档漂移、识别临时噪音
 
+- `skills/release-closeout/`
+  在版本发布前后做通用收尾：检查版本一致性、文档同步、产物命名、风险和回滚信息
+
 - `templates/CLAUDE.md`
   新项目可直接复用的规则层模板
 
 - `templates/project/`
   新项目 starter kit：`README`、`.gitignore`、issue 模板、PR 模板
+
+- `templates/project/release-checklist.md`
+  通用版本发布核对单
 
 ## 安装
 
@@ -121,6 +127,7 @@ bash scripts/install_all.sh
 6. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
 7. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
 8. 一轮工作完成后，用 `repo-closeout` 做统一收尾
+9. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
 
 ## 新项目启动
 
@@ -149,3 +156,17 @@ bash scripts/install_all.sh
 对应 skill：
 
 - `repo-closeout`
+
+## 发布收尾
+
+版本发布前后，推荐顺序是：
+
+1. 确认版本号、tag、产物、渠道
+2. 检查 `CHANGELOG` / `README` / 下载说明是否同步
+3. 检查产物命名、平台、架构、可分发性
+4. 汇总已知风险和回滚信息
+5. 发布后如有需要，再跑一轮 `repo-closeout`
+
+对应 skill：
+
+- `release-closeout`
