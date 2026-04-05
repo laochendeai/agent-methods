@@ -62,6 +62,12 @@ bash scripts/install_codex_skills.sh
 bash scripts/install_claude_skills.sh
 ```
 
+安装到 OpenClaw：
+
+```bash
+bash scripts/install_openclaw_skills.sh
+```
+
 同时安装到两边：
 
 ```bash
@@ -69,6 +75,7 @@ bash scripts/install_all.sh
 ```
 
 安装方式默认使用符号链接，所以这个仓库更新后，技能会随之更新。
+`OpenClaw` 这边同样使用 `~/.openclaw/skills/<skill-name>` 的软链接方式。
 
 ## 设计原则
 
