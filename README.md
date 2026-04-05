@@ -8,7 +8,7 @@
 分析外部源码后提炼出的可迁移方法论。
 
 2. `skills/`
-可安装到 `Codex` / `Claude Code` 的技能目录。
+可安装到 `Codex` / `Claude Code` / `OpenClaw` 的技能目录。
 
 3. `templates/`
 给新仓库使用的 `CLAUDE.md` 模板和规则骨架。
@@ -45,6 +45,9 @@
 - `skills/memory-promote/`
   把稳定规则沉淀到仓库规则，把临时噪音挡在外面
 
+- `skills/new-project-bootstrap/`
+  新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；没有才用模板生成第一版项目规则
+
 - `templates/CLAUDE.md`
   新项目可直接复用的规则层模板
 
@@ -68,7 +71,7 @@ bash scripts/install_claude_skills.sh
 bash scripts/install_openclaw_skills.sh
 ```
 
-同时安装到两边：
+同时安装到三边：
 
 ```bash
 bash scripts/install_all.sh
@@ -76,6 +79,20 @@ bash scripts/install_all.sh
 
 安装方式默认使用符号链接，所以这个仓库更新后，技能会随之更新。
 `OpenClaw` 这边同样使用 `~/.openclaw/skills/<skill-name>` 的软链接方式。
+
+## 规则优先级
+
+以后统一按这个优先级理解：
+
+1. 当前项目仓库里的 `CLAUDE.md`
+2. `agent-methods` 里的通用 skills 和方法
+3. `agent-methods/templates/CLAUDE.md` 只给“新项目且仓库里还没有 `CLAUDE.md`”时使用
+
+也就是说：
+
+- 现有项目：优先读项目自己的 `CLAUDE.md`
+- 新项目且没有规则：再用模板生成第一版
+- 通用闭环、回归、防串扰方法：始终由这个仓库提供
 
 ## 设计原则
 
@@ -92,3 +109,17 @@ bash scripts/install_all.sh
 3. 重复三次以上的流程，升级成一个 skill
 4. 新需求优先走 `issue -> branch -> verify -> PR -> merge -> sync master`
 5. 改动后默认跑 `regression-guard` 思路，而不是只看改动点
+6. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
+
+## 新项目启动
+
+以后新建项目时，不要机械地总是读模板。正确流程是：
+
+1. 先检查仓库里是否已有 `CLAUDE.md`
+2. 如果已有，就以项目内规则为准
+3. 如果没有，再读取本仓库的通用方法和 `templates/CLAUDE.md`
+4. 基于项目事实生成项目专属 `CLAUDE.md`
+
+对应 skill：
+
+- `new-project-bootstrap`
