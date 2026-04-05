@@ -11,7 +11,7 @@
 可安装到 `Codex` / `Claude Code` / `OpenClaw` 的技能目录。
 
 3. `templates/`
-给新仓库使用的 `CLAUDE.md` 模板和规则骨架。
+给新仓库使用的 `CLAUDE.md`、`README`、`.gitignore`、issue/PR 模板和规则骨架。
 
 ## 核心判断
 
@@ -48,8 +48,14 @@
 - `skills/new-project-bootstrap/`
   新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；没有才用模板生成第一版项目规则
 
+- `skills/project-bootstrap-plus/`
+  为新项目补齐 `CLAUDE.md`、`README`、`.gitignore`、issue/PR 模板与最小目录结构
+
 - `templates/CLAUDE.md`
   新项目可直接复用的规则层模板
+
+- `templates/project/`
+  新项目 starter kit：`README`、`.gitignore`、issue 模板、PR 模板
 
 ## 安装
 
@@ -110,6 +116,7 @@ bash scripts/install_all.sh
 4. 新需求优先走 `issue -> branch -> verify -> PR -> merge -> sync master`
 5. 改动后默认跑 `regression-guard` 思路，而不是只看改动点
 6. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
+7. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
 
 ## 新项目启动
 
@@ -123,3 +130,4 @@ bash scripts/install_all.sh
 对应 skill：
 
 - `new-project-bootstrap`
+- `project-bootstrap-plus`

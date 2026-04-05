@@ -1,0 +1,47 @@
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# env / secrets
+.env
+.env.*
+!.env.example
+
+# logs / temp / checkpoints
+*.log
+tmp/
+temp/
+cache/
+checkpoints/
+brainstorm/
+brainstorm*.md
+brainstorm*.json
+
+# python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+dist/
+build/
+*.egg-info/
+.venv/
+venv/
+
+# node
+node_modules/
+.next/
+.nuxt/
+coverage/
+*.tsbuildinfo
+
+# misc build outputs
+out/
+release/
+artifacts/
