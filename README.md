@@ -51,6 +51,9 @@
 - `skills/project-bootstrap-plus/`
   为新项目补齐 `CLAUDE.md`、`README`、`.gitignore`、issue/PR 模板与最小目录结构
 
+- `skills/repo-closeout/`
+  在一个阶段性工作完成后，对仓库做安全收尾：同步主分支、审视分支/worktree、检查文档漂移、识别临时噪音
+
 - `templates/CLAUDE.md`
   新项目可直接复用的规则层模板
 
@@ -117,6 +120,7 @@ bash scripts/install_all.sh
 5. 改动后默认跑 `regression-guard` 思路，而不是只看改动点
 6. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
 7. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
+8. 一轮工作完成后，用 `repo-closeout` 做统一收尾
 
 ## 新项目启动
 
@@ -131,3 +135,17 @@ bash scripts/install_all.sh
 
 - `new-project-bootstrap`
 - `project-bootstrap-plus`
+
+## 项目收尾
+
+一轮开发完成后，推荐顺序是：
+
+1. 确认 issue / PR / merge 已完成
+2. 回到并同步主分支
+3. 审视陈旧分支和 worktree
+4. 检查 `README` / `CLAUDE.md` 是否需要补同步
+5. 识别并隔离临时噪音文件
+
+对应 skill：
+
+- `repo-closeout`
