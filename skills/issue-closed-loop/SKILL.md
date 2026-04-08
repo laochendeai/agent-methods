@@ -1,6 +1,6 @@
 ---
 name: issue-closed-loop
-description: 以 issue 为中心完成仓库闭环交付。Use when the user wants end-to-end issue delivery: read issue, branch, implement, verify, PR, merge, and return to a clean master.
+description: "以 issue 为中心完成仓库闭环交付。Use when the user wants end-to-end issue delivery: read issue, branch, implement, verify, PR, merge, and return to a clean default branch."
 ---
 
 # Issue Closed Loop
@@ -27,7 +27,7 @@ description: 以 issue 为中心完成仓库闭环交付。Use when the user wan
 
 ### 2. 建独立分支
 
-- 从最新 `master` 或仓库主分支切出专用分支
+- 从最新仓库主分支（通常是 `main`）切出专用分支
 - 分支名带上 issue 编号和简短 slug
 
 **Success criteria**:
@@ -64,11 +64,11 @@ description: 以 issue 为中心完成仓库闭环交付。Use when the user wan
 
 - PR 描述写清问题、方案、验证
 - 如仓库流程允许，推进到合并
-- 合并后同步本地 `master`
+- 合并后同步本地主分支
 
 **Success criteria**:
 - issue 对应改动已进入主分支
-- 本地回到干净的 `master`
+- 本地回到干净的主分支
 
 ### 7. 输出闭环结果
 
@@ -82,5 +82,5 @@ description: 以 issue 为中心完成仓库闭环交付。Use when the user wan
 - 不要跳过验证
 - 不要把 unrelated change 一起提交
 - 如果被外部权限、账号、CI、人工审批卡住，要尽量推进到最远，并明确说明阻塞点
-- 合并后默认回到干净 `master`
+- 合并后默认回到干净主分支
 - 如果中途发现 issue 本身歧义，先用仓库现有文档和代码证据收敛，再决定是否升级为新 issue
