@@ -1,6 +1,15 @@
 # Agent Methods
 
-把 `/media/leo-cy/WORK/Claude code 源码` 里值得迁移的工程思想，沉淀成我自己的代理工程操作系统。
+一个面向公开协作的工程方法治理仓库。
+
+这里不放业务代码，专门沉淀代理工程里的可复用方法、skills、模板和闭环流程，把零散经验变成可执行、可验证、可传播的工程系统。
+
+欢迎通过 Issue 和 PR 一起参与这个仓库：
+
+- 补充新的 skill、template 和治理流程
+- 提炼外部优秀项目中值得迁移的方法论
+- 修正文档里不清晰、不严谨、不可执行的规则
+- 分享真实项目中的落地案例、回归问题和治理经验
 
 这个仓库不放业务代码，只放三类东西：
 
@@ -31,7 +40,7 @@
   如何把这些方法变成你自己的长期工程方式
 
 - `skills/issue-closed-loop/`
-  以 issue 为中心完成分支、实现、验证、PR、合并、回到干净 `master`
+  以 issue 为中心完成分支、实现、验证、PR、合并、回到干净主分支
 
 - `skills/regression-guard/`
   在改动后优先排查连带故障和回归
@@ -122,7 +131,7 @@ bash scripts/install_all.sh
 1. 业务仓库保留项目专属 `CLAUDE.md`
 2. 本仓库保留跨项目方法和技能
 3. 重复三次以上的流程，升级成一个 skill
-4. 新需求优先走 `issue -> branch -> verify -> PR -> merge -> sync master`
+4. 新需求优先走 `issue -> branch -> verify -> PR -> merge -> sync main`
 5. 改动后默认跑 `regression-guard` 思路，而不是只看改动点
 6. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
 7. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
