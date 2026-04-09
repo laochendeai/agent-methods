@@ -48,6 +48,9 @@
 - `docs/permission-policy.md`
   解释如何把权限写成 `allow / ask / deny` 策略，并诊断危险宽规则与遮蔽冲突
 
+- `docs/mcp-governance.md`
+  解释如何给 `MCP` 连接器做来源分层、签名去重、channel 风险隔离和 capability gating
+
 - `docs/plan-worktree-mode.md`
   解释什么时候先进入 `plan mode`，什么时候需要 `worktree` 隔离，以及两者如何和 issue 闭环配合
 
@@ -71,6 +74,9 @@
 
 - `skills/permission-policy/`
   为仓库补清晰的权限分层、危险模式约束和冲突诊断思路
+
+- `skills/mcp-governance/`
+  为仓库补连接器来源分层、去重优先级、channel 风险边界和 capability 暴露规则
 
 - `skills/issue-closed-loop/`
   以 issue 为中心完成分支、实现、验证、PR、合并、回到干净主分支
@@ -113,6 +119,9 @@
 
 - `templates/project/capability-packs/`
   capability pack 示例骨架，便于新仓库先声明能力编组边界
+
+- `templates/project/mcp-governance-checklist.md`
+  新项目梳理 connector policy、allowlist、capability gate 的最小检查清单
 
 - `templates/project/session-metadata.example.yaml`
   会话持久化与恢复的最小元数据示例骨架
@@ -172,6 +181,7 @@ bash scripts/install_all.sh
 - 把项目规则留在项目仓库，把跨仓库方法放在这个仓库
 - 技能只写“模型不知道但你长期需要它遵守的流程”
 - 当一个能力跨越 `skill / hook / MCP / template` 时，用 capability pack 组织，而不是把启停散落在多个地方
+- `MCP` 连接器要单独做来源分层、去重和 capability 暴露治理，不要只把它当成“多了几个工具”
 - 对长任务 / resume 型系统，单独定义 session persistence 和 lineage 边界，不要把恢复状态和聊天噪音混存
 - 并行执行前先定义 task、owner、依赖和最终验收责任，不要直接多开 agent 硬推
 - 每个技能都要有清晰的完成标准，而不是泛泛建议
@@ -188,11 +198,12 @@ bash scripts/install_all.sh
 7. 固定触发点上的重复门禁，优先用 `hook-gate` 设计成 hook，而不是继续靠聊天提醒
 8. 当一个能力需要 `skill + hook + MCP + template` 一起工作时，先定义 capability pack 边界
 9. 权限不要只写“谨慎”，优先用 `permission-policy` 明确 `allow / ask / deny`
-10. 当前工作区脏、任务易串扰、或需要并行时，用 `worktree-isolation`
-11. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
-12. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
-13. 一轮工作完成后，用 `repo-closeout` 做统一收尾
-14. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
+10. 引入新的外部 connector 前，先用 `mcp-governance` 明确来源优先级、去重规则和高风险 channel 边界
+11. 当前工作区脏、任务易串扰、或需要并行时，用 `worktree-isolation`
+12. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
+13. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
+14. 一轮工作完成后，用 `repo-closeout` 做统一收尾
+15. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
 
 ## 新项目启动
 
