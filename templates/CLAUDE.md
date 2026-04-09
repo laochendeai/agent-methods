@@ -40,11 +40,13 @@ This repository uses Claude/Codex as an execution agent, not just a chat assista
 
 Use issue-centered closed-loop delivery by default:
 
-1. Read the issue and local repo rules first.
-2. Create a dedicated branch.
-3. Implement only the issue scope.
-4. Run targeted verification before commit.
-5. Push, open PR, merge, then sync local `master`.
+1. For non-trivial work, lock scope and verification before editing implementation files.
+2. If the current workspace is risky or parallel work is expected, prefer an isolated worktree.
+3. Read the issue and local repo rules first.
+4. Create a dedicated branch.
+5. Implement only the issue scope.
+6. Run targeted verification before commit.
+7. Push, open PR, merge, then sync local `master`.
 
 ## Definition Of Done
 
@@ -60,6 +62,8 @@ A task is not done when code is written. It is done only when:
 
 - Do not revert unrelated local changes.
 - Do not widen scope silently.
+- For non-trivial tasks, plan before implementation.
+- Use worktree isolation when branch-only execution would contaminate the current workspace.
 - Findings come before summaries in review work.
 - Treat regression risk as a first-class concern.
 - Promote only stable, repeatable rules into this file.
