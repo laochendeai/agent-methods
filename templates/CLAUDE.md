@@ -63,6 +63,7 @@ A task is not done when code is written. It is done only when:
 - Do not revert unrelated local changes.
 - Do not widen scope silently.
 - For non-trivial tasks, plan before implementation.
+- Repeated gatekeeping checks with stable triggers should move into hooks or CI, not stay as ad hoc reminders.
 - Use worktree isolation when branch-only execution would contaminate the current workspace.
 - Findings come before summaries in review work.
 - Treat regression risk as a first-class concern.
