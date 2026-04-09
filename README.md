@@ -72,6 +72,9 @@
 - `docs/model-governance.md`
   解释如何把 model identity、provider routing、allowlist、capability cache、deprecation 和 upgrade path 做成正式治理层
 
+- `docs/sandbox-governance.md`
+  解释如何把 sandbox restriction profile、path semantics、managed-only 限制、doctor 和 fallback mode 做成清晰治理边界
+
 - `docs/plan-worktree-mode.md`
   解释什么时候先进入 `plan mode`，什么时候需要 `worktree` 隔离，以及两者如何和 issue 闭环配合
 
@@ -119,6 +122,9 @@
 
 - `skills/model-governance/`
   为仓库补 model selector 语义、provider routing、allowlist、capability policy 和 deprecation 规则
+
+- `skills/sandbox-governance/`
+  为仓库补 sandbox restriction dimensions、path semantics、managed-only 限制、doctor 和 override 规则
 
 - `skills/issue-closed-loop/`
   以 issue 为中心完成分支、实现、验证、PR、合并、回到干净主分支
@@ -186,6 +192,9 @@
 - `templates/project/model-governance-checklist.md`
   新项目设计 model identity、provider routing、allowlist 和 capability policy 时可直接复用的最小检查清单
 
+- `templates/project/sandbox-governance-checklist.md`
+  新项目设计 sandbox restriction profile、managed-only 边界和 fallback mode 时可直接复用的最小检查清单
+
 - `templates/project/session-metadata.example.yaml`
   会话持久化与恢复的最小元数据示例骨架
 
@@ -252,6 +261,7 @@ bash scripts/install_all.sh
 - settings source、managed settings 和 policy limits 要分层治理，不要把所有配置都混成“最后谁覆盖谁不清楚”的一团
 - plugin 要按生命周期治理，不要把安装、启用、依赖、降级、自动更新和下架清理混成一个模糊开关
 - model 要按 identity、provider、allowlist、capability 和 deprecation 分层治理，不要把选择逻辑继续藏在字符串和 if/else 里
+- sandbox 要按 restriction profile、path semantics、managed-only 边界和 fallback mode 分层治理，不要把它退化成一个 toggle
 - 对长任务 / resume 型系统，单独定义 session persistence 和 lineage 边界，不要把恢复状态和聊天噪音混存
 - 并行执行前先定义 task、owner、依赖和最终验收责任，不要直接多开 agent 硬推
 - 每个技能都要有清晰的完成标准，而不是泛泛建议
@@ -276,11 +286,12 @@ bash scripts/install_all.sh
 15. 要补配置来源分层、managed settings 或 policy limits 时，先用 `managed-settings-governance` 明确 source order、托管优先级、fail-open 和危险变更审批边界
 16. 要引入 plugin、marketplace 或仓库级扩展系统时，先用 `plugin-lifecycle-governance` 明确 install/enable、dependency、policy block、autoupdate 和 delist cleanup 边界
 17. 要补 provider-aware 的模型选择、allowlist、capability cache 或 deprecation 规则时，先用 `model-governance`
-18. 当前工作区脏、任务易串扰、或需要并行时，用 `worktree-isolation`
-19. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
-20. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
-21. 一轮工作完成后，用 `repo-closeout` 做统一收尾
-22. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
+18. 要补 sandbox、执行隔离、managed-only 限制或 strict/fallback 边界时，先用 `sandbox-governance`
+19. 当前工作区脏、任务易串扰、或需要并行时，用 `worktree-isolation`
+20. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
+21. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
+22. 一轮工作完成后，用 `repo-closeout` 做统一收尾
+23. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
 
 ## 新项目启动
 
