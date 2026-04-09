@@ -67,6 +67,7 @@ A task is not done when code is written. It is done only when:
 - When one reusable capability spans multiple skills, hooks, MCP servers, or templates, define a capability-pack boundary instead of scattering the activation points.
 - Permission policy should explicitly separate allow, ask, and deny behaviors; avoid broad interpreter allow rules.
 - If the repo supports long-running or resumable sessions, persist only recovery-critical session state and explicitly model lineage, worktree state, and subagent metadata.
+- If work is delegated across multiple agents, define task ownership, dependency edges, and final verification responsibility before parallel execution.
 - Use worktree isolation when branch-only execution would contaminate the current workspace.
 - Findings come before summaries in review work.
 - Treat regression risk as a first-class concern.
