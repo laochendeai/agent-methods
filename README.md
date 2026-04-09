@@ -39,8 +39,17 @@
 - `docs/adoption-blueprint.md`
   如何把这些方法变成你自己的长期工程方式
 
+- `docs/plan-worktree-mode.md`
+  解释什么时候先进入 `plan mode`，什么时候需要 `worktree` 隔离，以及两者如何和 issue 闭环配合
+
 - `skills/issue-closed-loop/`
   以 issue 为中心完成分支、实现、验证、PR、合并、回到干净主分支
+
+- `skills/plan-mode-gate/`
+  在复杂任务中先锁定范围、方案和验证，再进入实施
+
+- `skills/worktree-isolation/`
+  在高串扰或并行任务中使用 `worktree` 做目录隔离，而不是在脏工作区里硬做
 
 - `skills/regression-guard/`
   在改动后优先排查连带故障和回归
@@ -133,10 +142,12 @@ bash scripts/install_all.sh
 3. 重复三次以上的流程，升级成一个 skill
 4. 新需求优先走 `issue -> branch -> verify -> PR -> merge -> sync main`
 5. 改动后默认跑 `regression-guard` 思路，而不是只看改动点
-6. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
-7. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
-8. 一轮工作完成后，用 `repo-closeout` 做统一收尾
-9. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
+6. 非 trivial 任务先用 `plan-mode-gate` 锁定方案，再开始改实现
+7. 当前工作区脏、任务易串扰、或需要并行时，用 `worktree-isolation`
+8. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
+9. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
+10. 一轮工作完成后，用 `repo-closeout` 做统一收尾
+11. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
 
 ## 新项目启动
 
@@ -151,6 +162,25 @@ bash scripts/install_all.sh
 
 - `new-project-bootstrap`
 - `project-bootstrap-plus`
+
+## 复杂任务执行
+
+复杂任务不要直接在当前目录里一边探索一边改。推荐顺序是：
+
+1. 先判断这是不是 non-trivial 任务
+2. 如果是，先进入 `plan-mode-gate`
+3. 方案锁定后，再判断是否需要目录隔离
+4. 如果当前工作区有串扰风险，就进入 `worktree-isolation`
+5. 在隔离目录里继续走 `issue-closed-loop`
+6. 完成后用 `repo-closeout` 收尾
+
+对应资产：
+
+- `docs/plan-worktree-mode.md`
+- `skills/plan-mode-gate/`
+- `skills/worktree-isolation/`
+- `skills/issue-closed-loop/`
+- `skills/repo-closeout/`
 
 ## 项目收尾
 
