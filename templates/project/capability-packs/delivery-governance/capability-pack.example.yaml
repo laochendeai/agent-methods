@@ -1,0 +1,31 @@
+id: delivery-governance
+purpose: Safe autonomous issue delivery for repositories using agent workflows.
+scope: project
+default_enabled: false
+owners:
+  - platform
+activation:
+  enable_when:
+    - The repository relies on agents to move issues forward.
+    - Closed-loop delivery, regression checks, and guardrails should turn on together.
+  disable_when:
+    - The repo only needs isolated one-off skills.
+    - Team workflow is still too unstable to standardize a shared pack.
+components:
+  skills:
+    - issue-closed-loop
+    - regression-guard
+    - repo-closeout
+  docs:
+    - docs/plan-worktree-mode.md
+    - docs/hook-gate.md
+    - docs/permission-policy.md
+  templates:
+    - templates/CLAUDE.md
+    - templates/project/permission-policy.example.md
+    - templates/project/.claude/hooks.example.jsonc
+  hooks: []
+  mcp_servers: []
+notes:
+  - This manifest defines grouping and activation only.
+  - Each referenced component should remain independently usable.

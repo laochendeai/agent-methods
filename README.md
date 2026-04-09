@@ -26,7 +26,7 @@
 
 那个项目真正先进的地方，不是“模型更强”，而是把代理能力做成了工程系统：
 
-- 用 `context + memory + skills + hooks + permissions + worktree` 组织能力
+- 用 `context + memory + skills + hooks + plugins/capability-packs + permissions + worktree` 组织能力
 - 用“可执行流程”替代“每次都重新解释”
 - 用闭环交付替代一次性回答
 - 用权限、验证、隔离来降低代理误操作成本
@@ -42,11 +42,17 @@
 - `docs/hook-gate.md`
   解释什么检查应该前移到 hook，什么应该继续留在 skill、rule 或 CI
 
+- `docs/capability-pack.md`
+  解释如何把 `skill / hook / MCP / template` 组织成可启停能力包，而不是散落成零碎开关
+
 - `docs/permission-policy.md`
   解释如何把权限写成 `allow / ask / deny` 策略，并诊断危险宽规则与遮蔽冲突
 
 - `docs/plan-worktree-mode.md`
   解释什么时候先进入 `plan mode`，什么时候需要 `worktree` 隔离，以及两者如何和 issue 闭环配合
+
+- `skills/capability-pack-design/`
+  为跨 `skill / hook / MCP / template` 的能力设计 pack 边界、manifest 和启停规则
 
 - `skills/hook-gate/`
   为重复门禁设计 hook 策略，而不是继续依赖临时提醒
@@ -92,6 +98,9 @@
 
 - `templates/project/`
   新项目 starter kit：`README`、`.gitignore`、issue 模板、PR 模板
+
+- `templates/project/capability-packs/`
+  capability pack 示例骨架，便于新仓库先声明能力编组边界
 
 - `templates/project/release-checklist.md`
   通用版本发布核对单
@@ -144,6 +153,7 @@ bash scripts/install_all.sh
 - 把长期稳定的方法沉淀成技能，不靠临时聊天记忆
 - 把项目规则留在项目仓库，把跨仓库方法放在这个仓库
 - 技能只写“模型不知道但你长期需要它遵守的流程”
+- 当一个能力跨越 `skill / hook / MCP / template` 时，用 capability pack 组织，而不是把启停散落在多个地方
 - 每个技能都要有清晰的完成标准，而不是泛泛建议
 - 优先做能直接减少返工和回归的技能
 
@@ -156,12 +166,13 @@ bash scripts/install_all.sh
 5. 改动后默认跑 `regression-guard` 思路，而不是只看改动点
 6. 非 trivial 任务先用 `plan-mode-gate` 锁定方案，再开始改实现
 7. 固定触发点上的重复门禁，优先用 `hook-gate` 设计成 hook，而不是继续靠聊天提醒
-8. 权限不要只写“谨慎”，优先用 `permission-policy` 明确 `allow / ask / deny`
-9. 当前工作区脏、任务易串扰、或需要并行时，用 `worktree-isolation`
-10. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
-11. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
-12. 一轮工作完成后，用 `repo-closeout` 做统一收尾
-13. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
+8. 当一个能力需要 `skill + hook + MCP + template` 一起工作时，先定义 capability pack 边界
+9. 权限不要只写“谨慎”，优先用 `permission-policy` 明确 `allow / ask / deny`
+10. 当前工作区脏、任务易串扰、或需要并行时，用 `worktree-isolation`
+11. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
+12. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
+13. 一轮工作完成后，用 `repo-closeout` 做统一收尾
+14. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
 
 ## 新项目启动
 
