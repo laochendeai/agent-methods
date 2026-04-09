@@ -1,0 +1,46 @@
+session:
+  session_id: sess_example
+  project_path: /path/to/repo
+  transcript_path: /path/to/repo/.sessions/sess_example.jsonl
+  created_at: 2026-04-09T10:00:00Z
+  last_updated_at: 2026-04-09T10:20:00Z
+  custom_title: investigate resume drift
+  tag: persistence
+  agent_setting: default
+  mode: normal
+  pr_link: null
+
+lineage:
+  parent_session_id: null
+  forked_from_session_id: null
+  resume_source_session_id: sess_example
+
+execution:
+  cwd: /path/to/repo
+  original_project_root: /path/to/repo
+  worktree_path: /path/to/repo/.worktrees/issue-5
+  worktree_branch: issue-5-session-persistence
+
+subagents:
+  - agent_id: agent_verify_1
+    agent_type: verifier
+    description: verify resume chain integrity
+    worktree_path: /path/to/repo/.worktrees/issue-5
+
+remote_tasks:
+  - task_id: task_bg_1
+    task_type: background_review
+    session_id: remote_session_1
+    status_source: sessions_api
+
+checkpoints:
+  - type: turn_message_count
+    value: 128
+  - type: compact_boundary
+    tail_uuid: msg_tail_1
+
+do_not_persist:
+  - ephemeral_progress
+  - loading_state
+  - temporary_debug_notes
+  - UI_only_notifications
