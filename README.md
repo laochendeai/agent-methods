@@ -54,11 +54,17 @@
 - `docs/session-persistence.md`
   解释哪些会话状态应该被持久化、如何设计 lineage / worktree / subagent 恢复，以及怎样诊断 resume 一致性漂移
 
+- `docs/task-orchestration.md`
+  解释 task board 与 runtime task 的状态分层、leader/worker/verifier 职责，以及并行/串行的判断线
+
 - `skills/capability-pack-design/`
   为跨 `skill / hook / MCP / template` 的能力设计 pack 边界、manifest 和启停规则
 
 - `skills/hook-gate/`
   为重复门禁设计 hook 策略，而不是继续依赖临时提醒
+
+- `skills/multi-agent-orchestration/`
+  为并行代理协作设计 task、owner、依赖和最终验收边界
 
 - `skills/session-resume-governance/`
   为长任务和多会话仓库设计 session persistence、lineage、worktree 和 subagent 恢复边界
@@ -110,6 +116,9 @@
 
 - `templates/project/session-metadata.example.yaml`
   会话持久化与恢复的最小元数据示例骨架
+
+- `templates/project/task-orchestration.example.yaml`
+  多代理任务编排的最小状态与职责骨架
 
 - `templates/project/release-checklist.md`
   通用版本发布核对单
@@ -164,6 +173,7 @@ bash scripts/install_all.sh
 - 技能只写“模型不知道但你长期需要它遵守的流程”
 - 当一个能力跨越 `skill / hook / MCP / template` 时，用 capability pack 组织，而不是把启停散落在多个地方
 - 对长任务 / resume 型系统，单独定义 session persistence 和 lineage 边界，不要把恢复状态和聊天噪音混存
+- 并行执行前先定义 task、owner、依赖和最终验收责任，不要直接多开 agent 硬推
 - 每个技能都要有清晰的完成标准，而不是泛泛建议
 - 优先做能直接减少返工和回归的技能
 

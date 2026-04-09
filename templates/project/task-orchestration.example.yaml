@@ -1,0 +1,46 @@
+issue_goal: Example issue goal
+
+leader:
+  responsibilities:
+    - define scope
+    - create and assign tasks
+    - integrate outputs
+    - own final verification
+
+workers:
+  - name: implementer
+    scope: isolated implementation work
+  - name: verifier
+    scope: regression checks and acceptance review
+
+task_board_statuses:
+  - pending
+  - in_progress
+  - completed
+
+runtime_statuses:
+  - pending
+  - running
+  - completed
+  - failed
+  - killed
+
+claim_rules:
+  - one active task per worker by default
+  - blocked tasks stay pending until blockers resolve
+  - workers must update status or report blockers before idling
+
+parallel_when:
+  - write scopes are disjoint
+  - implementation and verification can proceed independently
+  - agents need different tools or context windows
+
+serial_when:
+  - tasks share the same critical write surface
+  - output of task A determines scope of task B
+  - final integration and final user-facing verification
+
+done_gate:
+  - worker task marked completed
+  - leader reviewed the integrated result
+  - targeted verification passed
