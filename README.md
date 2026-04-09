@@ -75,6 +75,9 @@
 - `docs/sandbox-governance.md`
   解释如何把 sandbox restriction profile、path semantics、managed-only 限制、doctor 和 fallback mode 做成清晰治理边界
 
+- `docs/trust-onboarding-governance.md`
+  解释如何把首次进入仓库时的 onboarding、trust gate、风险披露和 trust memory 做成固定治理流程
+
 - `docs/plan-worktree-mode.md`
   解释什么时候先进入 `plan mode`，什么时候需要 `worktree` 隔离，以及两者如何和 issue 闭环配合
 
@@ -125,6 +128,9 @@
 
 - `skills/sandbox-governance/`
   为仓库补 sandbox restriction dimensions、path semantics、managed-only 限制、doctor 和 override 规则
+
+- `skills/trust-onboarding-governance/`
+  为仓库补首次进入仓库时的 onboarding、trust memory、风险披露和 permission-flow 分层规则
 
 - `skills/issue-closed-loop/`
   以 issue 为中心完成分支、实现、验证、PR、合并、回到干净主分支
@@ -194,6 +200,9 @@
 
 - `templates/project/sandbox-governance-checklist.md`
   新项目设计 sandbox restriction profile、managed-only 边界和 fallback mode 时可直接复用的最小检查清单
+
+- `templates/project/trust-onboarding-checklist.md`
+  新项目设计首次进入仓库时的 trust gate、risk disclosure 和 trust memory 时可直接复用的最小检查清单
 
 - `templates/project/session-metadata.example.yaml`
   会话持久化与恢复的最小元数据示例骨架
@@ -287,11 +296,12 @@ bash scripts/install_all.sh
 16. 要引入 plugin、marketplace 或仓库级扩展系统时，先用 `plugin-lifecycle-governance` 明确 install/enable、dependency、policy block、autoupdate 和 delist cleanup 边界
 17. 要补 provider-aware 的模型选择、allowlist、capability cache 或 deprecation 规则时，先用 `model-governance`
 18. 要补 sandbox、执行隔离、managed-only 限制或 strict/fallback 边界时，先用 `sandbox-governance`
-19. 当前工作区脏、任务易串扰、或需要并行时，用 `worktree-isolation`
-20. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
-21. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
-22. 一轮工作完成后，用 `repo-closeout` 做统一收尾
-23. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
+19. 要补首次进入仓库时的风险披露、trust memory 或 onboarding 边界时，先用 `trust-onboarding-governance`
+20. 当前工作区脏、任务易串扰、或需要并行时，用 `worktree-isolation`
+21. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
+22. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
+23. 一轮工作完成后，用 `repo-closeout` 做统一收尾
+24. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
 
 ## 新项目启动
 
