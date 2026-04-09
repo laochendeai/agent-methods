@@ -1,0 +1,59 @@
+{
+  "//": "Example hook skeleton. Adjust event names, matchers, commands, and endpoints to your project.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git push --force*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Refusing force-push without explicit approval' >&2; exit 2",
+            "statusMessage": "checking force-push policy"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "http",
+            "url": "https://example.com/hooks/tool-failure",
+            "headers": {
+              "Authorization": "Bearer $HOOKS_TOKEN"
+            },
+            "allowedEnvVars": ["HOOKS_TOKEN"],
+            "statusMessage": "reporting write failure",
+            "once": false
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "default",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Summarize whether the session left unresolved risk. Use $ARGUMENTS as the source.",
+            "statusMessage": "generating closeout note",
+            "once": true
+          }
+        ]
+      }
+    ],
+    "TaskCreated": [
+      {
+        "matcher": "default",
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "Check whether the created task is missing an owner, validation plan, or stop condition. Use $ARGUMENTS.",
+            "statusMessage": "reviewing new task metadata"
+          }
+        ]
+      }
+    ]
+  }
+}

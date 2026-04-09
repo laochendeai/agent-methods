@@ -39,8 +39,14 @@
 - `docs/adoption-blueprint.md`
   如何把这些方法变成你自己的长期工程方式
 
+- `docs/hook-gate.md`
+  解释什么检查应该前移到 hook，什么应该继续留在 skill、rule 或 CI
+
 - `docs/plan-worktree-mode.md`
   解释什么时候先进入 `plan mode`，什么时候需要 `worktree` 隔离，以及两者如何和 issue 闭环配合
+
+- `skills/hook-gate/`
+  为重复门禁设计 hook 策略，而不是继续依赖临时提醒
 
 - `skills/issue-closed-loop/`
   以 issue 为中心完成分支、实现、验证、PR、合并、回到干净主分支
@@ -143,11 +149,12 @@ bash scripts/install_all.sh
 4. 新需求优先走 `issue -> branch -> verify -> PR -> merge -> sync main`
 5. 改动后默认跑 `regression-guard` 思路，而不是只看改动点
 6. 非 trivial 任务先用 `plan-mode-gate` 锁定方案，再开始改实现
-7. 当前工作区脏、任务易串扰、或需要并行时，用 `worktree-isolation`
-8. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
-9. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
-10. 一轮工作完成后，用 `repo-closeout` 做统一收尾
-11. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
+7. 固定触发点上的重复门禁，优先用 `hook-gate` 设计成 hook，而不是继续靠聊天提醒
+8. 当前工作区脏、任务易串扰、或需要并行时，用 `worktree-isolation`
+9. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
+10. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
+11. 一轮工作完成后，用 `repo-closeout` 做统一收尾
+12. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
 
 ## 新项目启动
 
