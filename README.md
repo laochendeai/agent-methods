@@ -60,6 +60,9 @@
 - `docs/memory-pipeline-governance.md`
   解释如何设计 durable extraction、session summary、team sync、`MEMORY.md` 索引和 secret guard
 
+- `docs/output-style-governance.md`
+  解释如何把 output style 做成有来源分层、覆盖关系和 plugin 绑定边界的 response contract
+
 - `docs/plan-worktree-mode.md`
   解释什么时候先进入 `plan mode`，什么时候需要 `worktree` 隔离，以及两者如何和 issue 闭环配合
 
@@ -95,6 +98,9 @@
 
 - `skills/memory-pipeline-governance/`
   为仓库补 session memory、durable extraction、team memory sync 和 `MEMORY.md` 索引规则
+
+- `skills/output-style-governance/`
+  为仓库补 output style 的数据模型、覆盖顺序、plugin 绑定和模板边界
 
 - `skills/issue-closed-loop/`
   以 issue 为中心完成分支、实现、验证、PR、合并、回到干净主分支
@@ -149,6 +155,9 @@
 
 - `templates/project/memory-index.example.md`
   新项目设计 `MEMORY.md` 索引时可直接改造的最小示例
+
+- `templates/project/output-styles/response-contract.example.md`
+  新项目设计 output style / response contract 时可直接改造的最小示例
 
 - `templates/project/session-metadata.example.yaml`
   会话持久化与恢复的最小元数据示例骨架
@@ -212,6 +221,7 @@ bash scripts/install_all.sh
 - 升级、自诊断、config repair、migration residue 要单独治理，不要只靠报错时人工排障
 - 长上下文治理要先定义 budget ladder、invariants、recovery 和 cleanup，不要只加一个 `/compact`
 - 记忆要分层成 session / personal / team 三条管线，不要把所有内容都塞进一个 memory 文件
+- output style 要做成结构化 response contract，不要只靠一次性 prompt 语气说明
 - 对长任务 / resume 型系统，单独定义 session persistence 和 lineage 边界，不要把恢复状态和聊天噪音混存
 - 并行执行前先定义 task、owner、依赖和最终验收责任，不要直接多开 agent 硬推
 - 每个技能都要有清晰的完成标准，而不是泛泛建议
@@ -232,11 +242,12 @@ bash scripts/install_all.sh
 11. 仓库开始积累 legacy config、升级迁移或自检需求时，先用 `doctor-repair-governance` 定义 severity、repair mode 和 migration version
 12. 长任务开始触顶或已出现 compact 漂移时，先用 `context-budget-governance` 定义预算梯子和 cleanup，再补具体实现
 13. 要补长期记忆能力时，先用 `memory-pipeline-governance` 分清 session、durable、team 和 `MEMORY.md` 索引边界
-14. 当前工作区脏、任务易串扰、或需要并行时，用 `worktree-isolation`
-15. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
-16. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
-17. 一轮工作完成后，用 `repo-closeout` 做统一收尾
-18. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
+14. 要补长期输出约束时，先用 `output-style-governance` 明确来源分层、覆盖关系和 plugin 绑定边界
+15. 当前工作区脏、任务易串扰、或需要并行时，用 `worktree-isolation`
+16. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
+17. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
+18. 一轮工作完成后，用 `repo-closeout` 做统一收尾
+19. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
 
 ## 新项目启动
 
