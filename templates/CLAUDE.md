@@ -64,6 +64,7 @@ A task is not done when code is written. It is done only when:
 - Do not widen scope silently.
 - For non-trivial tasks, plan before implementation.
 - Repeated gatekeeping checks with stable triggers should move into hooks or CI, not stay as ad hoc reminders.
+- Permission policy should explicitly separate allow, ask, and deny behaviors; avoid broad interpreter allow rules.
 - Use worktree isolation when branch-only execution would contaminate the current workspace.
 - Findings come before summaries in review work.
 - Treat regression risk as a first-class concern.
