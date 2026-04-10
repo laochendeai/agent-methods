@@ -78,6 +78,9 @@
 - `docs/trust-onboarding-governance.md`
   解释如何把首次进入仓库时的 onboarding、trust gate、风险披露和 trust memory 做成固定治理流程
 
+- `docs/large-file-governance.md`
+  解释如何把超长单文件、god file、例外登记和渐进式拆分路径做成治理规则
+
 - `docs/plan-worktree-mode.md`
   解释什么时候先进入 `plan mode`，什么时候需要 `worktree` 隔离，以及两者如何和 issue 闭环配合
 
@@ -131,6 +134,9 @@
 
 - `skills/trust-onboarding-governance/`
   为仓库补首次进入仓库时的 onboarding、trust memory、风险披露和 permission-flow 分层规则
+
+- `skills/large-file-governance/`
+  为仓库补超长单文件的阈值梯子、例外边界、拆分 seam 和增长限制规则
 
 - `skills/issue-closed-loop/`
   以 issue 为中心完成分支、实现、验证、PR、合并、回到干净主分支
@@ -203,6 +209,9 @@
 
 - `templates/project/trust-onboarding-checklist.md`
   新项目设计首次进入仓库时的 trust gate、risk disclosure 和 trust memory 时可直接复用的最小检查清单
+
+- `templates/project/large-file-governance-checklist.md`
+  新项目设计超长单文件阈值、例外登记和拆分策略时可直接复用的最小检查清单
 
 - `templates/project/session-metadata.example.yaml`
   会话持久化与恢复的最小元数据示例骨架
@@ -297,11 +306,12 @@ bash scripts/install_all.sh
 17. 要补 provider-aware 的模型选择、allowlist、capability cache 或 deprecation 规则时，先用 `model-governance`
 18. 要补 sandbox、执行隔离、managed-only 限制或 strict/fallback 边界时，先用 `sandbox-governance`
 19. 要补首次进入仓库时的风险披露、trust memory 或 onboarding 边界时，先用 `trust-onboarding-governance`
-20. 当前工作区脏、任务易串扰、或需要并行时，用 `worktree-isolation`
-21. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
-22. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
-23. 一轮工作完成后，用 `repo-closeout` 做统一收尾
-24. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
+20. 要治理几千行单文件、god file、例外登记或渐进式拆分路径时，先用 `large-file-governance`
+21. 当前工作区脏、任务易串扰、或需要并行时，用 `worktree-isolation`
+22. 新项目初始化时，先判断仓库里是否已有 `CLAUDE.md`；有就用项目内规则，没有才回退模板
+23. 如果要一次补齐新仓库骨架，直接用 `project-bootstrap-plus`
+24. 一轮工作完成后，用 `repo-closeout` 做统一收尾
+25. 一次版本发布完成前后，用 `release-closeout` 做发布收尾
 
 ## 新项目启动
 
