@@ -57,6 +57,8 @@ description: 做一次仓库级安全收尾。Use when a task, PR, or work sessi
 
 - 列出本地分支和 worktree
 - 识别已合并、明显陈旧、或仅用于一次性任务的对象
+- 对已合并的一次性 issue 分支 / worktree，默认按可清理处理
+- 若某对象需要保留，先确认并记录保留理由
 - 只在安全前提下清理；不确定时先报告再动手
 
 **Success criteria**:
@@ -105,3 +107,5 @@ description: 做一次仓库级安全收尾。Use when a task, PR, or work sessi
 - 不要用 `git reset --hard`、`git clean -fdx` 这类粗暴手段
 - 若当前工作区有用户未提交内容，优先保护现场
 - 收尾目标是“可继续协作”，不是“表面看起来全空”
+- 对已合并且无保留理由的临时 issue 分支 / worktree，默认应在收尾时清理
+- 如果仓库有约定保留的命名空间，必须先以仓库规则为准，不能按通用默认值误删

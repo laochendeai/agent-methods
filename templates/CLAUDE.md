@@ -47,6 +47,8 @@ Use issue-centered closed-loop delivery by default:
 5. Implement only the issue scope.
 6. Run targeted verification before commit.
 7. Push, open PR, merge, then sync local `master`.
+8. After merge, delete the temporary issue branch/worktree by default; if it must stay, record the keep reason explicitly.
+9. During repository closeout, review merged stale branches/worktrees and remove the non-retained ones.
 
 ## Definition Of Done
 
@@ -57,6 +59,7 @@ A task is not done when code is written. It is done only when:
 - the affected runtime path was verified when applicable
 - the branch/PR state is clean and understandable
 - local `master` is synced after merge
+- merged temporary issue branches/worktrees were cleaned up, or an explicit keep reason was recorded
 
 ## Rules
 
@@ -69,6 +72,8 @@ A task is not done when code is written. It is done only when:
 - If the repo supports long-running or resumable sessions, persist only recovery-critical session state and explicitly model lineage, worktree state, and subagent metadata.
 - If work is delegated across multiple agents, define task ownership, dependency edges, and final verification responsibility before parallel execution.
 - Use worktree isolation when branch-only execution would contaminate the current workspace.
+- Temporary issue branches/worktrees are disposable by default after merge unless an explicit keep reason exists.
+- If a repository intentionally retains namespaces such as `backup/*` or `wip/*`, define that retention rule explicitly in the business repo.
 - Findings come before summaries in review work.
 - Treat regression risk as a first-class concern.
 - Promote only stable, repeatable rules into this file.
