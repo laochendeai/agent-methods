@@ -143,6 +143,18 @@ review 建议。推荐把阈值落成 CI gate：
 4. 在 GitHub Actions 中添加 `large-file-governance` job。
 5. 在 branch protection 中把该 job 设为 required check。
 
+如果仓库是私有仓库且没有 GitHub Pro，GitHub 不允许 required
+checks / rulesets。此时推荐启用本地 fallback：
+
+1. 在项目内放置 `.githooks/pre-commit` 和 `.githooks/pre-push`。
+2. 在项目内放置 `scripts/install_git_hooks.sh`。
+3. 执行 `bash scripts/install_git_hooks.sh`，把 `core.hooksPath` 指向 `.githooks`。
+4. `pre-commit` 阶段拦截 large-file violation。
+5. `pre-push` 阶段运行项目总检查脚本；没有总检查脚本时至少运行 large-file gate。
+
+本地 hooks 可以被 `--no-verify` 绕过，所以它不是 GitHub required check
+的完全替代品；它是无付费计划时的最低成本强提醒和本地阻断层。
+
 默认硬规则：
 
 - 非例外源码文件超过 `max_lines` 直接 fail。
@@ -153,7 +165,10 @@ review 建议。推荐把阈值落成 CI gate：
 模板入口：
 
 - `templates/project/scripts/check_large_files.py`
+- `templates/project/scripts/install_git_hooks.sh`
 - `templates/project/.governance/large_file_policy.example.json`
+- `templates/project/.githooks/pre-commit`
+- `templates/project/.githooks/pre-push`
 - `templates/project/.github/workflows/large-file-governance.example.yml`
 
 ## 4. 合理例外必须显式登记
