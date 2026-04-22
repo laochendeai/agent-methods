@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "max_lines": 800,
+  "source_extensions": [
+    ".cjs",
+    ".css",
+    ".html",
+    ".js",
+    ".jsx",
+    ".mjs",
+    ".ps1",
+    ".py",
+    ".sh",
+    ".ts",
+    ".tsx"
+  ],
+  "exclude_globs": [
+    ".git/**",
+    ".venv/**",
+    "dist/**",
+    "build/**",
+    "coverage/**",
+    "node_modules/**",
+    "vendor/**",
+    "tests/fixtures/**"
+  ],
+  "legacy_files": {
+    "path/to/legacy_god_file.py": {
+      "max_lines": 1200,
+      "reason": "example only: replace with a real legacy baseline or remove"
+    }
+  }
+}
