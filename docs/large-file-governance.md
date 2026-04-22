@@ -132,6 +132,30 @@ Claude code 样本里能同时看到这三类信号：
 - 强交互 UI 项目，职责阈值应比行数阈值更敏感
 - 基础 parser / compiler / schema 项目，例外文件会更多
 
+### CI hard gate pattern
+
+如果项目已经进入持续交付阶段，large-file governance 不应只停留在
+review 建议。推荐把阈值落成 CI gate：
+
+1. 在项目内放置 `scripts/check_large_files.py`。
+2. 在项目内放置 `.governance/large_file_policy.json`。
+3. 在本地总检查脚本中调用 `python scripts/check_large_files.py`。
+4. 在 GitHub Actions 中添加 `large-file-governance` job。
+5. 在 branch protection 中把该 job 设为 required check。
+
+默认硬规则：
+
+- 非例外源码文件超过 `max_lines` 直接 fail。
+- 现有超长文件只能通过 `legacy_files` 登记为 frozen baseline。
+- legacy 文件当前行数不得超过 baseline。
+- 调高 baseline 是治理例外，必须在 PR 中解释原因。
+
+模板入口：
+
+- `templates/project/scripts/check_large_files.py`
+- `templates/project/.governance/large_file_policy.example.json`
+- `templates/project/.github/workflows/large-file-governance.example.yml`
+
 ## 4. 合理例外必须显式登记
 
 最常见的坏习惯是：

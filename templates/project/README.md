@@ -57,6 +57,7 @@
 - 项目规则以 `CLAUDE.md` 为准
 - 新需求优先走 issue 闭环
 - 改动后要做针对性验证，而不是只看 diff
+- 如启用 large-file governance，GitHub CI 应阻止新巨石文件和 legacy 文件继续增长
 
 ## Definition Of Done
 

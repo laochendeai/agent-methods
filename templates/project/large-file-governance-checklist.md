@@ -31,6 +31,23 @@
 
 并写清这些阈值是否按语言、目录或文件类型不同而调整。
 
+## Hard Gate Bootstrap
+
+如果项目要把规则变成 GitHub 强门禁，至少落地：
+
+1. 复制 `templates/project/scripts/check_large_files.py` 到项目 `scripts/check_large_files.py`。
+2. 复制 `templates/project/.governance/large_file_policy.example.json` 到项目 `.governance/large_file_policy.json`。
+3. 删除示例 legacy 项，登记项目真实的超长 legacy 文件 baseline。
+4. 将 `python scripts/check_large_files.py` 接入本地总检查脚本。
+5. 复制或改造 `templates/project/.github/workflows/large-file-governance.example.yml`。
+6. 在 GitHub branch protection 中把 `large-file-governance` 设为 required check。
+
+推荐硬规则：
+
+- 新文件超过 `max_lines` 直接失败。
+- legacy 文件只能保持在登记 baseline 以下或等于 baseline。
+- 调高 baseline 必须在 PR 中说明为什么不能本次拆分。
+
 ## Exception Registry
 
 如果某些大文件属于例外，至少写清：
@@ -95,3 +112,4 @@
 - Files above the governance threshold need either an exception rationale or a split plan.
 - Files above the freeze threshold should not keep receiving unrelated new capabilities.
 - Large-file refactors must verify behavior, not just reduce line count.
+- If CI enforcement is enabled, `scripts/check_large_files.py` and `.governance/large_file_policy.json` are the source of truth for line-count thresholds and frozen legacy baselines.
