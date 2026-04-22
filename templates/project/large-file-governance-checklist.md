@@ -42,6 +42,17 @@
 5. 复制或改造 `templates/project/.github/workflows/large-file-governance.example.yml`。
 6. 在 GitHub branch protection 中把 `large-file-governance` 设为 required check。
 
+如果私有仓库没有 GitHub Pro，不能配置 required check，则启用本地 fallback：
+
+1. 复制 `templates/project/.githooks/pre-commit` 到项目 `.githooks/pre-commit`。
+2. 复制 `templates/project/.githooks/pre-push` 到项目 `.githooks/pre-push`。
+3. 复制 `templates/project/scripts/install_git_hooks.sh` 到项目 `scripts/install_git_hooks.sh`。
+4. 执行 `bash scripts/install_git_hooks.sh`。
+5. 确认 `git config --get core.hooksPath` 输出 `.githooks`。
+
+限制：本地 hooks 可以被 `--no-verify` 绕过；如果仓库以后变为 public
+或启用 GitHub Pro，仍应把 `large-file-governance` 配成 required check。
+
 推荐硬规则：
 
 - 新文件超过 `max_lines` 直接失败。
@@ -113,3 +124,4 @@
 - Files above the freeze threshold should not keep receiving unrelated new capabilities.
 - Large-file refactors must verify behavior, not just reduce line count.
 - If CI enforcement is enabled, `scripts/check_large_files.py` and `.governance/large_file_policy.json` are the source of truth for line-count thresholds and frozen legacy baselines.
+- If GitHub required checks are unavailable, install `.githooks` through `scripts/install_git_hooks.sh` as the no-cost local fallback.

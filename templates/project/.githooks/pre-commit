@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+
+resolve_python() {
+  if [[ -n "${PYTHON_BIN:-}" ]]; then
+    printf '%s\n' "$PYTHON_BIN"
+    return
+  fi
+
+  if [[ -n "${VIRTUAL_ENV:-}" && -x "${VIRTUAL_ENV}/bin/python" ]]; then
+    printf '%s\n' "${VIRTUAL_ENV}/bin/python"
+    return
+  fi
+
+  if [[ -x "$ROOT_DIR/work/bin/python" ]]; then
+    printf '%s\n' "$ROOT_DIR/work/bin/python"
+    return
+  fi
+
+  if [[ -x "$ROOT_DIR/.venv/bin/python" ]]; then
+    printf '%s\n' "$ROOT_DIR/.venv/bin/python"
+    return
+  fi
+
+  if command -v python3 >/dev/null 2>&1; then
+    command -v python3
+    return
+  fi
+
+  if command -v python >/dev/null 2>&1; then
+    command -v python
+    return
+  fi
+
+  printf '[pre-commit] no usable Python interpreter found.\n' >&2
+  exit 1
+}
+
+PYTHON_BIN="$(resolve_python)"
+
+printf '[pre-commit] running large-file governance gate\n'
+"$PYTHON_BIN" "$ROOT_DIR/scripts/check_large_files.py"
